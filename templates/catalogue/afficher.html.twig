@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter dans le catalogue
+{% endblock %}
+
+{% block body %}
+
+	<style type="text/css">
+		.slider {
+			width: 70%;
+			height: 500px;
+			margin: 20px auto;
+			box-sizing: border-box;
+			overflow: hidden;
+			box-shadow: 5px 5px 10px grey;
+
+		}
+
+		img {
+			width: 100%;
+			height: 500px;
+			animation: ani 2s linear;
+
+		}
+
+		@keyframes ani {
+			0% {
+				transform: scale(1.2);
+			}
+			10% {
+				transform: scale(1);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+	</style>
+	<center>
+
+		<a class="btn btn-lg btn-primary rounded" style="margin-bottom:40px; margin-top:40px;" href="{{ path('catalogue') }}" role="button">
+			Retour au catalogue &raquo;</a>
+	</center>
+
+	{% for img in images %}
+		<input class="tableauImage" type="hidden" value="{{ img.image }}">
+	{% endfor %}
+	<div class="slider rounded">
+
+		<div id="img">
+			<img src="../uploads/brochures/{{ SliderFirstImage }}">
+		</div>
+
+	</div>
+
+
+	<div class="container" style="margin-top:48px;">
+		<div class="p-5 rounded" style="background-color:#f0f0f0">
+			<center>
+				<h1>
+					{{ titre }}
+				</h1>
+			</center>
+
+			<p class="lead" style="text-align: justify;text-indent:5%">
+				{{ description }}
+			</p>
+
+
+			<br>
+			{{ date|date(" m/d/Y") }}
+			<center>
+				<a class=" btn btn-lg btn-primary rounded" href="{{ path('contact') }}" role="button">Contactez-nous &raquo;
+
+				</a>
+			</center>
+		</p>
+	</div>
+</div>
+<script>
+	var elements = document.getElementsByClassName("tableauImage");
+var images = [];
+for (var i = 0; i < elements.length; i++) {
+images[i] = elements[i].value;
+}
+console.log(images)
+
+
+var x = 0;
+
+var imgs = document.getElementById('img');
+
+setInterval(slider, 4000);
+
+
+function slider() {
+
+if (x < images.length) {
+x = x + 1;
+} else {
+x = 1;
+} imgs.innerHTML = "<img src=../uploads/brochures/" + images[x - 1] + ">";
+
+
+}
+</script>{% endblock %}
